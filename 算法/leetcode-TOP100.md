@@ -335,6 +335,31 @@ public class Solution {
         return res;
     }
 }
+
+//我自己的实现方法---2021-7-12 15:05:43
+public static String getStr(String s) {
+		String max = "";
+		String current = "";
+		char[] charArray = s.toCharArray();
+		for (char c : charArray) {
+			if (!current.contains(c + "")) {
+				current += c;
+			} else {
+				if (current.length() > max.length()) {
+					max = current;
+				}
+				current = "";
+				current += c;
+
+			}
+		}
+
+		if (current.length() > max.length()) {
+			max = current;
+		}
+
+		return max;
+	}
 ```
 
 ### 4.寻找两个有序数组的中位数
@@ -447,6 +472,38 @@ public class Solution {
         }
     }
 }
+
+//我自己的实现方法  2021-7-12 15:06:34
+//最长回文子串
+	public static String getStr2(String s) {
+		String max = "";
+		StringBuilder current = new StringBuilder();
+		char[] charArray = s.toCharArray();
+		for (int i = 0; i < charArray.length - 1; i++) {
+			char a = charArray[i];
+			current.append(a);
+			boolean flag = false;
+			for (int j = i + 1; j < charArray.length; j++) {
+				char b = charArray[j];
+				current.append(b);
+				if (reverse(current.toString()).equals(current.toString())) {
+					if (current.toString().length() > max.length()) {
+						max = current.toString();
+						flag = true;
+					}
+				}
+			}
+			if (!flag) {
+				current = new StringBuilder();
+			}
+		}
+		return max;
+	}
+
+   //reverse会直接修改StringBuilder，所以需要重新new一个
+	public static String reverse(String str) {
+		return new StringBuffer(str).reverse().toString();
+	}
 ```
 
 ### 10.正则表达式匹配
